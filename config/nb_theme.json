@@ -1,0 +1,43 @@
+[
+  {
+    "key": "theme_1",
+    "primary_color": "attr_color_blue_1",
+    "secondary_color": "attr_color_yellow_1",
+    "navigation_color": "attr_color_red_1",
+    "background_color": "attr_color_grey_1",
+    "screen_background_color": "attr_color_grey_1",
+    "screen_secondary_background_color": "attr_color_grey_2",
+    "card_background_color": "attr_color_blue_1",
+    "card_secondary_background_color": "attr_color_blue_2",
+    "button_disabled_color": "attr_color_grey_3",
+    "status_bar_style": "light",
+    "primary_text_color": "attr_color_yellow_1",
+    "secondary_text_color": "attr_color_red_1",
+    "tertiary_text_color": "attr_color_red_2",
+    "font_family": "Montserrat",
+    "action_button_color": "attr_color_yellow_1",
+    "highlight_primary_color": "attr_color_yellow_1",
+    "highlight_secondary_color": "attr_color_red_1",
+    "tab_bar_color": "attr_color_grey_1",
+    "logo_size": {
+      "width": 200,
+      "height": 150
+    },
+    "icon_label_color": "attr_color_blue_2",
+    "button_primary_color": "attr_color_blue_1",
+    "button_secondary_color": "attr_color_red_1",
+    "screen_overrides": {
+      "main_screen": {
+        "background_color": "attr_color_yellow_1"
+      }
+    },
+    "card_overrides": {
+      "id_counter_card": {
+        "background_color": "attr_color_grey_3",
+        "primary_text_color": "attr_color_blue_1",
+        "status_bar_style": "dark"
+      }
+    }
+  }
+]
+
