@@ -4,11 +4,11 @@ import 'package:ui_kit/theme/service/dynamic_theme.dart';
 import 'package:ui_kit/theme/nb_theme/mixins.dart';
 import 'package:ui_kit/theme/nb_theme/nb_theme.dart';
 
-class CounterCardWidget extends StatelessWidget with CardThemeMixin {
+class InnerCardWidget extends StatelessWidget with CardThemeMixin {
   final InnerCardModel model;
   final String screenKey;
 
-  const CounterCardWidget({required this.model, required this.screenKey, Key? key}) : super(key: key);
+  const InnerCardWidget({required this.model, required this.screenKey, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CounterCardWidget extends StatelessWidget with CardThemeMixin {
   }
 
   @override
-  String getKey() => 'id_counter_card';
+  String getKey() => 'id_inner_card';
 
   @override
   String parentKey() => screenKey;

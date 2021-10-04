@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui_kit/counter_card/model.dart';
+import 'package:ui_kit/screen/inner_screen.dart';
 import 'package:ui_kit/theme/service/dynamic_theme.dart';
 import 'package:ui_kit/theme/nb_theme/mixins.dart';
 import 'package:ui_kit/theme/nb_theme/nb_theme.dart';
@@ -18,13 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return const MyHomePage(title: 'Flutter Demo Home Page');
   }
 }
 
@@ -67,21 +62,26 @@ class _MyHomePageState extends State<MyHomePage> with ScreenThemeMixin {
             return DynamicThemeService(
                 initialTheme: snapshot.data!,
                 child: Builder(builder: (c2) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Container(
-                          color: DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorBackground), c2),
-                          child: Text(widget.title, style: DynamicTheme.textTitle(this, c2))),
-                    ),
-                    body: CounterCardWidget(
-                      screenKey: getKey(),
-                      model: CounterCardModel(title: 'You have pushed the button this many times:', counter: _counter),
-                    ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: _incrementCounter,
-                      backgroundColor:  DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorActionButton), c2),
-                      tooltip: 'Increment',
-                      child: const Icon(Icons.add),
+                  return MaterialApp(
+                    navigatorKey: navigator,
+                    home: Scaffold(
+                      appBar: AppBar(
+                        title: Container(
+                            color: DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorBackground), c2),
+                            child: Text(widget.title, style: DynamicTheme.textTitle(this, c2))),
+                      ),
+                      body: CounterCardWidget(
+                        screenKey: getKey(),
+                        model: InnerCardModel(title: 'You have pushed the button this many times:', counter: _counter),
+                      ),
+                      floatingActionButton: FloatingActionButton(
+                        onPressed: () {
+                          Navigator.of(navigator.currentContext!).push<void>(InnerScreen.route());
+                        },
+                        backgroundColor: DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorActionButton), c2),
+                        tooltip: 'Increment',
+                        child: const Icon(Icons.add),
+                      ),
                     ),
                   );
                 }));
@@ -100,3 +100,5 @@ class _MyHomePageState extends State<MyHomePage> with ScreenThemeMixin {
   @override
   String getKey() => "main_screen";
 }
+
+final navigator = GlobalKey<NavigatorState>();

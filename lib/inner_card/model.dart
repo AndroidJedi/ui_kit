@@ -2,18 +2,18 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class InnerCardModel extends Equatable {
+class CounterCardModel extends Equatable {
 
   final String title;
   final int counter;
 
-  const InnerCardModel({required this.title, required this.counter});
+  const CounterCardModel({required this.title, required this.counter});
 
-  InnerCardModel copyWith({
+  CounterCardModel copyWith({
     String? title,
     int? counter,
   }) {
-    return InnerCardModel(
+    return CounterCardModel(
       title: title ?? this.title,
       counter: counter ?? this.counter,
     );
