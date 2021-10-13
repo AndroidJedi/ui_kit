@@ -1,14 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:ui_kit/counter_card/model.dart';
-import 'package:ui_kit/screen/inner_screen.dart';
-import 'package:ui_kit/theme/service/dynamic_theme.dart';
-import 'package:ui_kit/theme/nb_theme/mixins.dart';
-import 'package:ui_kit/theme/nb_theme/nb_theme.dart';
 
-import 'counter_card/counter_card_widget.dart';
+import '_ui_kit/theme/nb_theme/nb_theme.dart';
+import '_ui_kit/theme/service/dynamic_theme.dart';
+import '_ui_kit/ui_kit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,73 +26,34 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with ScreenThemeMixin {
-  int _counter = 0;
-  late Future<NbTheme?> _themeFuture;
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    _themeFuture = _loadTheme();
-    super.initState();
+  Widget build(BuildContext context) {
+    return DynamicThemeService(
+      initialTheme: NbTheme.defaultTheme,
+      child: Builder(builder: (c2) {
+        return MaterialApp(
+          navigatorKey: navigator,
+          home: Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                UiKit.buttonCtaPrimary(label: "Label", context: c2, onTap: () {}),
+                UiKit.spaceVertSm,
+                UiKit.buttonCtaPrimary(label: "Label", context: c2),
+                UiKit.spaceVertSm,
+                UiKit.buttonCtaSecondary(label: "Label", context: c2, onTap: () {}),
+                UiKit.spaceVertSm,
+                UiKit.buttonCtaSecondary(label: "Label", context: c2),
+                UiKit.spaceVertSm,
+                UiKit.buttonIconCtaPrimary(label: "Label", context: c2, onTap: () {}),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
   }
-
-  Future<NbTheme?> _loadTheme() async {
-    try {
-      final stringTheme = await rootBundle.loadString('config/nb_theme.json');
-      final themeJson = json.decode(stringTheme);
-      return NbTheme.fromJson(themeJson.first);
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  @override
-  Widget build(BuildContext c) {
-    return FutureBuilder<NbTheme?>(
-        future: _themeFuture,
-        builder: (c1, snapshot) {
-          if (snapshot.data != null) {
-            return DynamicThemeService(
-                initialTheme: snapshot.data!,
-                child: Builder(builder: (c2) {
-                  return MaterialApp(
-                    navigatorKey: navigator,
-                    home: Scaffold(
-                      appBar: AppBar(
-                        title: Container(
-                            color: DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorBackground), c2),
-                            child: Text(widget.title, style: DynamicTheme.textTitle(this, c2))),
-                      ),
-                      body: CounterCardWidget(
-                        screenKey: getKey(),
-                        model: InnerCardModel(title: 'You have pushed the button this many times:', counter: _counter),
-                      ),
-                      floatingActionButton: FloatingActionButton(
-                        onPressed: () {
-                          Navigator.of(navigator.currentContext!).push<void>(InnerScreen.route());
-                        },
-                        backgroundColor: DynamicTheme.getParam(themeValueRequest(NbTheme.keyColorActionButton), c2),
-                        tooltip: 'Increment',
-                        child: const Icon(Icons.add),
-                      ),
-                    ),
-                  );
-                }));
-          } else {
-            return const SizedBox.shrink();
-          }
-        });
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  String getKey() => "main_screen";
 }
 
 final navigator = GlobalKey<NavigatorState>();

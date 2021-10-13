@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit/theme/nb_theme/mixins.dart';
 
 import '../nb_theme/nb_theme.dart';
 
@@ -21,26 +20,6 @@ class DynamicTheme extends InheritedWidget {
 
   static DynamicTheme of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<DynamicTheme>()!;
-  }
-
-  static dynamic getParam(ThemeValueRequest themeValueRequest, BuildContext context) {
-    return DynamicTheme.of(context).getTheme().getParam(themeValueRequest);
-  }
-
-  static TextStyle textTitle(ThemeMixin screen, BuildContext context) {
-    final fontFamilyRequest = screen.themeValueRequest(NbTheme.keyFontFamily);
-    final textColorRequest = screen.themeValueRequest(NbTheme.keyColorSecondaryText);
-    String fontFamily = DynamicTheme.of(context).getTheme().getParam(fontFamilyRequest);
-    Color textColor = DynamicTheme.of(context).getTheme().getParam(textColorRequest);
-    return TextStyle(fontSize: 20, color: textColor, fontFamily: fontFamily);
-  }
-
-  static TextStyle textBody(ThemeMixin screen, BuildContext context) {
-    final fontFamilyRequest = screen.themeValueRequest(NbTheme.keyFontFamily);
-    final textColorRequest = screen.themeValueRequest(NbTheme.keyColorPrimaryText);
-    String fontFamily = DynamicTheme.of(context).getTheme().getParam(fontFamilyRequest);
-    Color textColor = DynamicTheme.of(context).getTheme().getParam(textColorRequest);
-    return TextStyle(fontSize: 18, color: textColor, fontFamily: fontFamily);
   }
 }
 
