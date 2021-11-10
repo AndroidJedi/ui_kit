@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return cache;
   }
 
-  Future<int?> getFromRemote() async {
+  Future<int?> getFromRemote(String fooRequest) async {
     int remote = random.nextInt(3);
     print('getFromRemote: $remote');
     return remote;
@@ -58,8 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     dataDelegate = DataDelegate(
-      getFromCache: () => getFromCache(),
-      getFromRemote: () => getFromRemote(),
+      getFromCache: (request) => getFromCache(request),
+      getFromRemote: (request) => getFromRemote(request),
       putToCache: (v) => putToCache(v),
     );
     super.initState();
